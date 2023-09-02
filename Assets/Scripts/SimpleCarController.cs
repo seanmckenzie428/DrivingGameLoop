@@ -23,6 +23,28 @@ public class SimpleCarController : MonoBehaviour {
             }
         }
     }
+
+    public void SlowDown(float amount)
+    {
+        // Slow down the car by amount
+        SetBrakes(amount);
+        // Wait for 1 second then set the brake torque to 0
+        Invoke(nameof(ResetBrakes), 1f);
+    }
+
+    public void SetBrakes(float amount)
+    {
+        foreach (AxleInfo axleInfo in axleInfos)
+        {
+            axleInfo.leftWheel.brakeTorque = amount;
+            axleInfo.rightWheel.brakeTorque = amount;
+        }
+    }
+    
+    public void ResetBrakes()
+    {
+        SetBrakes(0);
+    }
 }
     
 [System.Serializable]
